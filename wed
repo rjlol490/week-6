@@ -1,0 +1,40 @@
+
+
+def printHeader(title):
+    """PRints a styled box around any section title"""
+    print("\n"+"+" * 40)
+    print(f"{title.upper()}")
+    print("="*40)
+    
+def askQuestions(questionText, correctAnswer, points):
+    """Asks a question, cheks answer, and returns points"""
+    print(f"\n QUESTION: {questionText}")
+    userAnswer=input("Your answer: ").strip().lower()
+    
+    if userAnswer==correctAnswer.lower():
+        print(f"CORRECT! (+{points} pts)")
+        return points
+    else:
+        print(f"WRONG! The correct answer was: {correctAnswer}")
+        return 0
+def evaluateRank(finalScore):
+    """Determines player rank based on total score."""
+    if finalScore>=30:
+        return "CYBER ARCHITECT (PERFECT)"
+    elif finalScore>=20:
+        return "CODE RUNNER (GOOD)"
+    else:
+        return "SCRIPT KIDDIE (NEEDS PRACTICE)"
+        
+printHeader("Welcome to the Python Quiz")
+score=0
+
+score+=askQuestions("What symbol starts a comment in Python?", "#", 10)
+score+=askQuestions("What index posistion is the FIRST item in a list", "0", 10)
+score+=askQuestions("Which loop is best when you know the exact number of steps", "for", 10)
+
+printHeader("Final Results")
+rank=evaluateRank(score)
+
+print(f"Final score {score} / 30")
+print(f"Rank earned: {rank}")
