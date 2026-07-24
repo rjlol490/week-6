@@ -1,0 +1,88 @@
+import time
+#1. data structure: Question bank(List of dictionaries)
+quizBank=[
+    {
+     "question":"What function adds a new item to the END of a list?",
+     "options":["a).pop()", "B) .append()", "C) .add", "D) .insert()"],
+     "answer": "B"
+    },
+    {
+        "question": "Which loop is best when you don't know how many turns to run?",
+        "options": ["A) for loop", "B) if loop", "C) while loop", "D) break loop"],
+        "answer": "C"
+    },
+    {
+        "question": "What keyword sends a value out from inside a function?",
+        "options": ["A) send", "B) output", "C) export", "D) return"],
+        "answer":"D"
+    },
+    {
+        "question": "What index number represents the VERY first item in a list?",
+        "options": ["A) 0", "B) 1", "C) -1", "D) 100"],
+        "answer":"A"
+    }
+]
+#2. Helper functions
+def printBanner(text):
+    """Prints a styled section Header"""
+    print("\n"+"="*50)
+    print(f" {text.upper()}")
+    
+def askQuestions(qData, qNumber):
+    """Takes a single question dictionary, displays options and returns true if the user got it right"""
+    print(f"\n [QUESTION {qNumber}] {qData['question']}")
+    
+    #Display options using a loop
+    for option in qData["options"]:
+        print(f" {option}")
+        
+    userChoice= input("\n Enter your choice (A, B, C, or D): ").strip().upper()
+    
+    #Check answer
+    if userChoice==qData["answer"]:
+        print("CORRECT! +10 points!")
+        return True
+    else:
+        print(f"INCORRECT! The correct choice was [{qData['answer']}].")
+        return False
+        
+def getRankBadge(finalScore, maxPossible):
+    """Returns a badge title based on accuracy percentage"""
+    percentage=(finalScore/maxPossible)*100
+    if percentage==100:
+        return "CYBER ARCHITECT (perfect score!)"
+    elif percentage>=75:
+        return "CODE RUNNER (great job!)"
+    elif percentage >=50:
+        return "SCRIPT KIDDIE (not bad!)"
+    else:
+        return "NOOB PROGRAMMER (needs practice!)"
+
+#3. Main Game Loop
+def runTriviaGame():
+    score=0
+    pointsPerQuestion=10
+    totalQuestions=len(quizBank)
+    
+    printBanner("WELCOME TO THE PYTHON TRIVIA ENGINE")
+    print("Test your coding knowledge! Answer A, B, C, or D.")
+    input("\n Press ENTER to start the game...")
+    
+    #Loop through each question dictionary in our list
+    for index, q in enumerate(quizBank, start=1):
+        time.sleep(0.5)
+        isCorrect=askQuestions(q, index)
+        
+        if isCorrect:
+            score+=pointsPerQuestion
+        
+    #Final Results Screen
+    maxScore=totalQuestions*pointsPerQuestion
+    rank=getRankBadge(score, maxScore)
+    
+    printBanner("FINAL RESULTS REPORT")
+    print(f"Total Score: {score}/{maxScore}")
+    print(f"Rank Earned: {rank}")
+    print("\n"+"="*50)
+    
+runTriviaGame()
